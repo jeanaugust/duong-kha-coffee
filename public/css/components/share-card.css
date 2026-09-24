@@ -1,27 +1,49 @@
-/* share-card.css - Nút chia sẻ link sản phẩm */
+/* share-card.css - Khớp với base dark/gold - Chỉ nút Facebook */
 .share-section {
   display: flex;
+  align-items: center;
   gap: 12px;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
+  margin-top: 2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--border-dark);
 }
+
 .share-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid #e5e7eb;
-  background: white;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--primary-gold);
+  border: 1px solid var(--primary-gold);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all.2s;
+  transition: background-color var(--transition-smooth), 
+              color var(--transition-smooth), 
+              box-shadow var(--transition-smooth),
+              transform var(--transition-fast);
 }
+
 .share-btn:hover {
-  background: #111;
-  color: white;
-  transform: translateY(-2px);
+  background-color: var(--primary-gold);
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px rgba(243, 224, 140, 0.3);
+  transform: translateY(-1px);
 }
-.share-btn.zalo { border-color: #0068ff; color: #0068ff; }
-.share-btn.zalo:hover { background: #0068ff; color: white; }
+
+.share-btn:active {
+  transform: translateY(0);
+}
+
+/* Icon nhỏ */
+.share-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
