@@ -1,7 +1,7 @@
 // @ts-nocheck
 // GOOGLE REVIEWS COMPONENT - Duong Kha
 // File: public/js/components/google-reviews.js
-// Link Map: https://www.google.com/maps/place/Cơ+Sở+Cà+Phê+Rang+Dương+Kha/@10.377503,105.4432275
+// Link Map: https://maps.app.goo.gl/fMKkp5VKwsnGWFzs9
 
 (function() {
   
