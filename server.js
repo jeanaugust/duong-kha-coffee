@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 require('dotenv').config();
 
-const pool = require('../db'); // <-- QUAN TRỌNG: thêm dòng này, không là lỗi 500
+const pool = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 
