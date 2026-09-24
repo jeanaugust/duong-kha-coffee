@@ -28,40 +28,20 @@ function escapeHtml(str){
   return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// Hỗ trợ luôn link cũ product-detail.html?id=1 để khi share vẫn có ảnh
-app.get('/product-detail.html', async (req, res, next) => {
-  const id = req.query.id;
-  if (!id) return next(); // không có id thì trả về file tĩnh như cũ
-
+app.get('/product/:id', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [id]);
-    if (result.rows.length === 0) return next();
-
+    const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [req.params.id]);
+    if (!result.rows.length) return res.status(404).send('Not found');
     const p = result.rows[0];
     const priceFormatted = new Intl.NumberFormat('vi-VN').format(p.price) + '₫';
-    const productUrl = `${req.protocol}://${req.get('host')}/product-detail.html?id=${p.id}`;
+    const productUrl = `${req.protocol}://${req.get('host')}/product/${p.id}`;
     let imageUrl = p.image_url || '';
-    if (!imageUrl.startsWith('http')) {
-      imageUrl = `${req.protocol}://${req.get('host')}${imageUrl.startsWith('/')? '' : '/'}${imageUrl}`;
-    }
-
+    if (!imageUrl.startsWith('http')) imageUrl = `${req.protocol}://${req.get('host')}${imageUrl.startsWith('/')?'':'/'}${imageUrl}`;
     let html = fs.readFileSync(path.join(__dirname, 'public', 'product-detail.html'), 'utf8');
-    const ogTags = `
-    <meta property="og:type" content="product">
-    <meta property="og:url" content="${productUrl}">
-    <meta property="og:title" content="${p.name} - ${priceFormatted} | Dương Kha Coffee">
-    <meta property="og:description" content="${(p.description || p.name).substring(0,150)}">
-    <meta property="og:image" content="${imageUrl}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="Dương Kha Coffee">
-    `;
-
+    const ogTags = `<meta property="og:type" content="product"><meta property="og:url" content="${productUrl}"><meta property="og:title" content="${p.name} - ${priceFormatted} | Dương Kha Coffee"><meta property="og:description" content="${(p.description||p.name).substring(0,150)}"><meta property="og:image" content="${imageUrl}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`;
     html = html.replace(/<title>.*?<\/title>/, `<title>${p.name} - ${priceFormatted} | Dương Kha Coffee</title>\n${ogTags}`);
     res.send(html);
-  } catch (e) {
-    next();
-  }
+  } catch(e){ res.status(500).send('Lỗi'); }
 });
 
 // 5. Phục vụ tài nguyên tĩnh

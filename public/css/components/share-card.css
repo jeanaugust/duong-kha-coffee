@@ -1,6 +1,7 @@
-/* share-card.css - Khớp với base dark/gold - Chỉ nút Facebook */
+/* share-card.css - Dark/Gold - FB + Messenger */
 .share-section {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   margin-top: 2rem;
@@ -13,7 +14,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.4rem;
   background-color: transparent;
   color: var(--primary-gold);
   border: 1px solid var(--primary-gold);
@@ -21,13 +22,10 @@
   font-family: var(--font-main);
   font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color var(--transition-smooth), 
-              color var(--transition-smooth), 
-              box-shadow var(--transition-smooth),
-              transform var(--transition-fast);
+  transition: all var(--transition-smooth);
 }
 
 .share-btn:hover {
@@ -36,14 +34,12 @@
   box-shadow: 0 0 15px rgba(243, 224, 140, 0.3);
   transform: translateY(-1px);
 }
-
-.share-btn:active {
-  transform: translateY(0);
+.share-btn.messenger {
+  border-color: #0084ff;
+  color: #0084ff;
 }
-
-/* Icon nhỏ */
-.share-btn svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
+.share-btn.messenger:hover {
+  background-color: #0084ff;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0,132,255,0.3);
 }
