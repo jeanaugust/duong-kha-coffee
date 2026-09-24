@@ -28,51 +28,39 @@ function escapeHtml(str){
   return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// --- ROUTE CHIA SẺ LINK SẢN PHẨM - OG TAGS CHUẨN FB/ZALO ---
-app.get('/product/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [id]);
+// Hỗ trợ luôn link cũ product-detail.html?id=1 để khi share vẫn có ảnh
+app.get('/product-detail.html', async (req, res, next) => {
+  const id = req.query.id;
+  if (!id) return next(); // không có id thì trả về file tĩnh như cũ
 
-    if (result.rows.length === 0) {
-      return res.status(404).send('Không tìm thấy sản phẩm');
-    }
+  try {
+    const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [id]);
+    if (result.rows.length === 0) return next();
 
     const p = result.rows[0];
     const priceFormatted = new Intl.NumberFormat('vi-VN').format(p.price) + '₫';
-    const productUrl = `${req.protocol}://${req.get('host')}/product/${p.id}`;
-    
-    // Đảm bảo ảnh là link tuyệt đối https:// thì Zalo mới hiện
+    const productUrl = `${req.protocol}://${req.get('host')}/product-detail.html?id=${p.id}`;
     let imageUrl = p.image_url || '';
     if (!imageUrl.startsWith('http')) {
-      imageUrl = `${req.protocol}://${req.get('host')}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+      imageUrl = `${req.protocol}://${req.get('host')}${imageUrl.startsWith('/')? '' : '/'}${imageUrl}`;
     }
 
     let html = fs.readFileSync(path.join(__dirname, 'public', 'product-detail.html'), 'utf8');
-
     const ogTags = `
     <meta property="og:type" content="product">
     <meta property="og:url" content="${productUrl}">
-    <meta property="og:title" content="${escapeHtml(p.name)} - ${escapeHtml(priceFormatted)} | Dương Kha Coffee">
-    <meta property="og:description" content="${escapeHtml((p.description || `Cà phê ${p.name} rang mộc nguyên chất.`).substring(0,150))}">
+    <meta property="og:title" content="${p.name} - ${priceFormatted} | Dương Kha Coffee">
+    <meta property="og:description" content="${(p.description || p.name).substring(0,150)}">
     <meta property="og:image" content="${imageUrl}">
-    <meta property="og:image:secure_url" content="${imageUrl}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Dương Kha Coffee">
-    <meta property="product:price:amount" content="${p.price}">
-    <meta property="product:price:currency" content="VND">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="description" content="${escapeHtml(p.description || p.name)} - Chỉ ${priceFormatted} tại Dương Kha Coffee.">
     `;
 
-    // Thay thế title cũ bằng title mới có giá
-    html = html.replace(/<title>.*?<\/title>/, `<title>${escapeHtml(p.name)} - ${escapeHtml(priceFormatted)} | Dương Kha Coffee</title>\n${ogTags}`);
-
+    html = html.replace(/<title>.*?<\/title>/, `<title>${p.name} - ${priceFormatted} | Dương Kha Coffee</title>\n${ogTags}`);
     res.send(html);
   } catch (e) {
-    console.error('[OG ERROR]', e);
-    res.status(500).send('Lỗi server khi tạo link chia sẻ');
+    next();
   }
 });
 
