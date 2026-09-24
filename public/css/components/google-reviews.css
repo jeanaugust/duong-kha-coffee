@@ -1,0 +1,122 @@
+/* GOOGLE REVIEWS COMPONENT - Duong Kha Luxury Style */
+.google-reviews-section {
+    background: #0d0c0b;
+    border: 1px solid rgba(243,224,140,0.12);
+    padding: 2.5rem;
+    margin: 3rem 0;
+}
+
+.google-reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(243,224,140,0.08);
+    padding-bottom: 1.5rem;
+}
+
+.google-reviews-title {
+    font-family: var(--font-heading, serif);
+    font-size: 1.4rem;
+    color: var(--primary-gold, #f3e08c);
+    letter-spacing: 1px;
+}
+
+.google-reviews-title span {
+    color: #fff;
+    font-weight: 300;
+}
+
+.google-reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.google-rating-big {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.google-stars {
+    color: #fbbc05;
+    letter-spacing: 2px;
+}
+
+.google-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+}
+
+.review-card-lux {
+    background: #141210;
+    border: 1px solid rgba(243,224,140,0.08);
+    padding: 1.2rem;
+    transition: 0.3s;
+}
+
+.review-card-lux:hover {
+    border-color: rgba(243,224,140,0.2);
+    transform: translateY(-2px);
+}
+
+.review-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f3e08c;
+    color: #0d0c0b;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.review-name {
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.review-verified {
+    font-size: 0.75rem;
+    color: var(--text-muted, #888);
+}
+
+.review-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #ccc;
+    font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.review-footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-view-map {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--primary-gold, #f3e08c);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(243,224,140,0.3);
+}

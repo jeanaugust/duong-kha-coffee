@@ -1,0 +1,210 @@
+/* Reset CSS */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Nút dạng Gold Outline dùng chung */
+.btn-gold-outline {
+    display: inline-block;
+    padding: 0.85rem 2.25rem;
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color var(--transition-smooth), 
+                color var(--transition-smooth), 
+                box-shadow var(--transition-smooth);
+}
+
+.btn-gold-outline:hover {
+    background-color: var(--primary-gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(243, 224, 140, 0.3);
+}
+
+/* Layout Container */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.page-wrapper {
+    flex: 1;
+    padding: 2.5rem 0;
+}
+
+/* Common Section Titles */
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.gold-leaf-divider {
+    color: var(--primary-gold);
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.title-elegant {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.subtitle-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.4rem;
+}
+
+/* Form Controls & Inputs */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-dark);
+    color: var(--text-light);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-gold);
+}
+
+/* Spec Badges */
+.spec-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: rgba(243, 224, 140, 0.08);
+    border: 1px solid var(--primary-gold);
+    color: var(--primary-gold);
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+}
+
+.spec-text {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.shelf-life-text {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   PAGE LOADER WITH ANIMATED LOGO
+   ========================================================================== */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-dark, #0d0c0b);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.logo-loader-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+.loader-logo {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    z-index: 2;
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+.loader-gold-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top-color: var(--primary-gold, #f3e08c);
+    border-right-color: rgba(243, 224, 140, 0.2);
+    border-radius: 50%;
+    animation: spinRing 1.2s linear infinite;
+    z-index: 1;
+}
+.loader-text {
+    color: var(--primary-gold, #f3e08c);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    animation: textFade 1.5s ease-in-out infinite alternate;
+}
+.page-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+@keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes logoGlow {
+    0% {
+        transform: scale(0.92);
+        filter: drop-shadow(0 0 2px rgba(243, 224, 140, 0.2));
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 12px rgba(243, 224, 140, 0.8));
+        opacity: 1;
+    }
+}
+@keyframes textFade {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+}

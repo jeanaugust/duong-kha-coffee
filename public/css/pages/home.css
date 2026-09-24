@@ -1,0 +1,341 @@
+/* ==========================================================================
+   HOME PAGE STYLES (home.css)
+   ========================================================================== */
+
+/* 1. HERO BANNER
+   -------------------------------------------------------------------------- */
+.hero-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem;
+    background: linear-gradient(180deg, rgba(23, 21, 19, 0.6) 0%, var(--bg-dark) 100%),
+                radial-gradient(circle at center, rgba(243, 224, 140, 0.05) 0%, transparent 70%);
+    border-bottom: 1px solid var(--border-gold);
+}
+
+.subtitle-tag {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+.hero-banner h1 {
+    font-family: var(--font-heading);
+    color: var(--text-light);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    max-width: 650px;
+    margin-bottom: 2.25rem;
+    line-height: 1.8;
+}
+
+/* Nút dạng Gold Outline dùng chung */
+.btn-gold-outline {
+    display: inline-block;
+    padding: 0.85rem 2.25rem;
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color var(--transition-smooth), 
+                color var(--transition-smooth), 
+                box-shadow var(--transition-smooth);
+}
+
+.btn-gold-outline:hover {
+    background-color: var(--primary-gold);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(243, 224, 140, 0.3);
+}
+
+/* 2. SECTION CHUNG & TRIẾT LÝ (FEATURES)
+   -------------------------------------------------------------------------- */
+.features-section,
+.slider-section,
+.facebook-section {
+    padding: 4.5rem 1.5rem;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* CSS dự phòng cho nội dung động JS đổ vào container features */
+.features-grid .feature-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    text-align: center;
+    transition: border-color var(--transition-fast), 
+                transform var(--transition-fast);
+}
+
+.features-grid .feature-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   SLIDER CAROUSEL SẢN PHẨM (LUXURY CARD SHOWCASE)
+   ========================================================================== */
+
+.slider-section {
+    padding: 3.5rem 0;
+    overflow: hidden;
+    background-color: var(--bg-dark, #0d0c0b);
+}
+
+/* Khung chứa slider chống vỡ layout */
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1.5rem 0;
+}
+
+/* Dải card chạy liên tục */
+.slider-track {
+    display: flex;
+    gap: 1.75rem;
+    width: max-content;
+    animation: infiniteSlide linear infinite;
+}
+
+.slider-container:hover .slider-track {
+    animation-play-state: paused; /* Tạm dừng trượt khi hover */
+}
+
+/* ==========================================================================
+   SLIDER CAROUSEL SẢN PHẨM (RECTANGULAR DARK LUXURY STYLE)
+   ========================================================================== */
+
+/* 1. Khung Card hình chữ nhật đứng, phối màu tối sang trọng */
+.slide-card {
+    flex: 0 0 280px;
+    width: 280px;
+    background-color: var(--bg-card, #161412);
+    border: 1px solid var(--border-dark, rgba(243, 224, 140, 0.12));
+    border-radius: var(--radius-md, 12px);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Tùy chỉnh căn trái giúp layout hiện đại hơn */
+    transition: transform var(--transition-fast, 0.3s ease), 
+                border-color var(--transition-fast, 0.3s ease), 
+                box-shadow var(--transition-fast, 0.3s ease);
+    box-sizing: border-box;
+}
+
+.slide-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* 2. Khung ảnh hình chữ nhật dọc, tỉ lệ 3:4 chuẩn nhiếp ảnh sản phẩm */
+.slide-card .card-img-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Tạo khung dọc cân đối (ví dụ: 248px x 330px) */
+    border-radius: var(--radius-sm, 8px);
+    overflow: hidden;
+    background-color: var(--bg-input, #0d0c0b);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+/* 3. Ảnh phủ kín 100% khung hình chữ nhật dọc không bị co dãn */
+.slide-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill tràn 100% khung dọc, cắt cúp tự động */
+    object-position: center;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.slide-card:hover img {
+    transform: scale(1.06); /* Zoom nhẹ phóng to ảnh khi hover */
+}
+
+/* 4. Thông tin Tên & Giá tiền phía dưới */
+.slide-card h4 {
+    color: var(--text-light, #ffffff);
+    font-family: var(--font-heading, inherit);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.4rem 0;
+    line-height: 1.35;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Tên dài tự ngắt thành ... */
+}
+
+.slide-card .price {
+    color: var(--primary-gold, #f3e08c);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* KEYFRAME TRƯỢT LIÊN TỤC VÔ TẬN */
+@keyframes infiniteSlide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Trượt đúng 1/2 độ dài chuỗi nhân đôi */
+    }
+}
+
+/* 4. FACEBOOK SECTION
+   -------------------------------------------------------------------------- */
+.facebook-section {
+    text-align: center;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-md);
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.fb-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0.75rem 0 2rem 0;
+}
+
+/* 5. RESPONSIVE ADJUSTMENTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .hero-banner {
+        padding: 4rem 1rem;
+    }
+
+    .features-section,
+    .slider-section,
+    .facebook-section {
+        padding: 3rem 1rem;
+    }
+
+    .slider-track .product-card {
+        flex: 0 0 240px;
+    }
+}
+
+/* ==========================================================================
+   COMPONENT: TRIẾT LÝ & GIÁ TRỊ (LUXURY FEATURES GRID)
+   ========================================================================== */
+
+/* 1. Lưới chứa 4 thẻ Triết lý */
+.features-grid {
+    display: grid;
+    /* Tự động chia 4 cột trên PC, 2 cột trên Tablet, 1 cột trên Mobile */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* 2. Khung thẻ Luxuy Box */
+.feature-box-luxury {
+    background-color: var(--bg-card, #161412);
+    border: 1px solid var(--border-dark, rgba(243, 224, 140, 0.12));
+    border-radius: var(--radius-md, 12px);
+    padding: 2.25rem 1.5rem;
+    
+    /* Đảm bảo căn chỉnh nội dung theo chiều dọc ngay ngắn */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    /* Hiệu ứng chuyển cảnh mượt mà */
+    transition: transform var(--transition-fast, 0.3s ease), 
+                border-color var(--transition-fast, 0.3s ease),
+                box-shadow var(--transition-fast, 0.3s ease);
+}
+
+/* Hiệu ứng Hover nâng thẻ & phát sáng nhẹ viền vàng Gold */
+.feature-box-luxury:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-gold, #f3e08c);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. KHỐNG CHẾ KÍCH THƯỚC SVG ICON (Khắc phục lỗi quá khổ) */
+.feature-box-luxury .feature-svg-icon {
+    width: 48px;               /* Cố định chiều rộng icon */
+    height: 48px;              /* Cố định chiều cao icon */
+    stroke: var(--primary-gold, #f3e08c); /* Ép màu nét vẽ thành màu Gold */
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;            /* Khung không bị co lại khi nội dung dài */
+    transition: transform 0.3s ease;
+}
+
+.feature-box-luxury:hover .feature-svg-icon {
+    transform: scale(1.1);     /* Phóng to nhẹ icon khi hover vào card */
+}
+
+/* 4. Định dạng Tiêu đề Thẻ (Title) */
+.feature-box-luxury h3 {
+    color: var(--text-light, #ffffff);
+    font-family: var(--font-heading, inherit);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* 5. Định dạng Mô tả Thẻ (Description) */
+.feature-box-luxury p {
+    color: var(--text-muted, #a09a8e);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+/* Nút thứ 2 - kiểu solid vàng cho nổi hơn nút outline */
+.btn-gold-solid {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--primary-gold, #f3e08c);
+    color: var(--bg-dark, #0d0c0b);
+    border: 1px solid var(--primary-gold, #f3e08c);
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}

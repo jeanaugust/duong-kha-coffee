@@ -1,0 +1,14 @@
+/* css/style.css - Tệp điều phối chính */
+
+/* 1. Core System */
+@import url('variables.css');
+@import url('base.css');
+@import url('components.css');
+
+/* 2. Page Specific Styles */
+@import url('pages/products.css');
+@import url('pages/home.css'); */
+@import url('pages/about.css'); */
+@import url('pages/contact.css'); */
+/* 3. Additional Components */
+@import url('/components/floating-buttons.css');

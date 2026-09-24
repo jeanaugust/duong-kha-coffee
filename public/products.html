@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="/css/components/floating-buttons.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản Phẩm - Duong Kha Coffee</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages/products.css">
+</head>
+<body>
+    <div class="page-loader" id="page-loader">
+        <div class="loader-content">
+            <div class="logo-loader-wrapper">
+                <img src="images/logo.png" alt="Duong Kha Coffee" class="loader-logo">
+                <div class="loader-gold-ring"></div>
+            </div>
+            <p class="loader-text">Đang tải...</p>
+        </div>
+    </div>
+
+    <div id="app-header"></div>
+
+    <main class="page-wrapper">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="gold-leaf-divider">❖</span>
+                <h2 class="title-elegant">Bộ Sưu Tập Cà Phê</h2>
+                <p class="subtitle-text">Rang xay thủ công · Nguyên chất</p>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="products-toolbar reveal">
+                <div class="filter-chips" id="filter-chips">
+                    <button class="chip active" data-filter="all">Tất cả</button>
+                    <button class="chip" data-filter="robusta">Robusta</button>
+                    <button class="chip" data-filter="arabica">Arabica</button>
+                    <button class="chip" data-filter="blend">Blend</button>
+                </div>
+                <div class="toolbar-meta">
+                    <span id="product-count">— sản phẩm</span>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="products-grid" id="products-grid">
+                <p class="loading-text">Đang tải danh sách sản phẩm...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Compare Bar -->
+    <div class="compare-bar" id="compare-bar">
+        <div class="compare-bar-inner">
+            <div class="compare-bar-info">
+                <span class="gold-dot"></span>
+                <span id="compare-count">0</span> sản phẩm được chọn để so sánh
+            </div>
+            <div class="compare-bar-actions">
+                <button class="btn-compare-clear" id="clear-compare">Xóa</button>
+                <button class="btn-compare-open" id="open-compare">So sánh ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div class="compare-modal" id="compare-modal">
+        <div class="compare-modal-overlay" id="compare-overlay"></div>
+        <div class="compare-modal-content">
+            <div class="compare-modal-header">
+                <h3>So sánh các loại cà phê rang</h3>
+                <button class="compare-close" id="close-compare">✕</button>
+            </div>
+            <div class="compare-table-wrap" id="compare-table-wrap">
+                <!-- JS render -->
+            </div>
+        </div>
+    </div>
+
+    <div id="app-footer"></div>
+
+    <script src="js/components.js"></script>
+    <script src="js/products-new.js"></script>
+    <script>
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('page-loader');
+        setTimeout(() => loader.classList.add('fade-out'), 600);
+      });
+    </script>
+    <script src="/js/components/floating-buttons.js"></script>
+</body>
+</html>

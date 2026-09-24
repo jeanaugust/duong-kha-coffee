@@ -1,0 +1,257 @@
+/* ==========================================================================
+   ABOUT PAGE - Duong Kha Coffee
+   File: css/pages/about.css
+   ========================================================================== */
+
+/* Hero nhỏ gọn */
+.about-hero {
+    padding: 4rem 0 2.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(243, 224, 140, 0.08);
+}
+
+.about-hero .hero-kicker {
+    color: var(--primary-gold);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.9;
+}
+
+.about-hero h1 {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.about-hero .hero-address {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+/* Khối nội dung chính */
+.about-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+}
+
+.about-block {
+    margin-bottom: 4rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(243, 224, 140, 0.12);
+    padding: 2.5rem;
+    position: relative;
+}
+
+.about-block::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 2rem;
+    width: 60px;
+    height: 1px;
+    background: var(--primary-gold);
+}
+
+.about-block .block-label {
+    color: var(--primary-gold);
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+.about-block h2 {
+    font-family: var(--font-heading);
+    color: var(--text-light);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.about-block h2 span {
+    color: var(--primary-gold);
+}
+
+.about-block p {
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 2;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.about-block p:last-child { margin-bottom: 0; }
+
+.about-block p strong {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.about-block .highlight-line {
+    border-left: 2px solid var(--primary-gold);
+    padding-left: 1.2rem;
+    margin: 1.8rem 0;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* Section khác biệt - 2 cột */
+.diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(243, 224, 140, 0.12);
+    border: 1px solid rgba(243, 224, 140, 0.12);
+    margin-top: 2rem;
+}
+
+.diff-item {
+    background: var(--bg-dark);
+    padding: 1.8rem;
+}
+
+.diff-item.rejected { opacity: 0.5; }
+
+.diff-item .diff-tag {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+    padding: 4px 8px;
+    border: 1px solid;
+}
+
+.diff-item.rejected .diff-tag {
+    color: var(--text-muted);
+    border-color: rgba(255,255,255,0.15);
+}
+
+.diff-item.active .diff-tag {
+    color: var(--primary-gold);
+    border-color: var(--primary-gold);
+    background: rgba(243, 224, 140, 0.08);
+}
+
+.diff-item p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Quy trình 4 bước */
+.process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.process-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(243, 224, 140, 0.1);
+}
+
+.process-step:last-child { border-bottom: none; padding-bottom: 0; }
+
+.step-number {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: 2.5rem;
+    line-height: 1;
+    opacity: 0.8;
+}
+
+.step-content h4 {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.step-content p {
+    font-size: 0.92rem;
+    line-height: 1.9;
+    margin: 0;
+}
+
+/* Dành cho ai */
+.audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.audience-card {
+    border: 1px solid rgba(243, 224, 140, 0.12);
+    background: rgba(255,255,255,0.02);
+    padding: 2rem;
+}
+
+.audience-card h4 {
+    color: var(--primary-gold);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.audience-card p {
+    font-size: 0.92rem;
+    line-height: 1.9;
+}
+
+/* Footer note */
+.about-footer-note {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(243, 224, 140, 0.08);
+}
+
+.about-footer-note p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+/* ANIMATION - Load tới đâu hiện tới đó */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@media (max-width: 768px) {
+    .about-content { padding: 2rem 1.2rem 4rem; }
+    .about-block { padding: 1.8rem 1.4rem; }
+    .diff-grid, .audience-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 1fr; gap: 0.5rem; }
+}

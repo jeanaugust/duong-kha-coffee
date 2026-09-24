@@ -1,0 +1,337 @@
+/* ==========================================================================
+   COMPONENTS STYLES (components.css) - Header & Footer
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. HEADER STYLES
+   -------------------------------------------------------------------------- */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(23, 21, 19, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-gold);
+    transition: background-color var(--transition-fast);
+}
+
+.header-inner {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo Area */
+.logo-container .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-container img {
+    max-height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.alt-logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.alt-logo-text span {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1;
+}
+
+.alt-logo-text small {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    margin-top: 4px;
+}
+
+/* Navigation Desktop */
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-gold);
+    transition: width var(--transition-smooth);
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-gold);
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+/* Mobile Toggle Button (Hamburger) */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.mobile-menu-btn span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-gold);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+}
+
+/* Biến đổi icon Hamburger khi active (thành dấu X) */
+.mobile-menu-btn.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+
+/* --------------------------------------------------------------------------
+   2. FOOTER STYLES (Pixelgrade Inspired Layout)
+   -------------------------------------------------------------------------- */
+.main-footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-dark);
+    padding-top: 4rem;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem 3.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 2.5rem;
+    text-align: left;
+}
+
+.footer-brand-title {
+    font-family: var(--font-heading);
+    color: var(--primary-gold);
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.footer-slogan {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    max-width: 400px;
+}
+
+/* Inline Social Links */
+.footer-social-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.social-label {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.social-links a {
+    color: var(--primary-gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: opacity var(--transition-fast);
+}
+
+.social-links a:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+/* Footer Columns & Headings */
+.footer-heading {
+    font-family: var(--font-heading);
+    color: var(--text-light);
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.footer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.list-label {
+    display: block;
+    color: var(--primary-gold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+}
+
+.list-text {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.list-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color var(--transition-fast);
+}
+
+.list-link:hover {
+    color: var(--primary-gold);
+}
+
+.map-btn-link {
+    display: inline-block;
+    color: var(--primary-gold);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: transform var(--transition-fast);
+}
+
+.map-btn-link:hover {
+    transform: translateX(4px);
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+    border-top: 1px solid var(--border-dark);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem 1.5rem;
+}
+
+.footer-bottom-inner {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.footer-bottom .sub-text {
+    color: rgba(160, 160, 160, 0.6);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. RESPONSIVE BREAKPOINTS (Mobile & Tablet)
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header Mobile Navigation */
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border-gold);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-smooth);
+    }
+
+    .nav-menu.active {
+        max-height: 300px;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1.2rem;
+        align-items: flex-start;
+    }
+
+    .nav-menu a::after {
+        display: none;
+    }
+
+    /* Footer Mobile */
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom-inner {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}
