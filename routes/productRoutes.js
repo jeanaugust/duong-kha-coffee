@@ -5,7 +5,7 @@ const pool = require('../config/db'); // Đường dẫn kết nối CSDL Postgr
 router.get('/', async (req, res) => {
     try {
         // Truy vấn tất cả các cột trong bảng products
-        const result = await pool.query('SELECT * FROM products ORDER BY id ASC');
+        const result = await pool.query('SELECT * FROM public.products ORDER BY id ASC');
         
         // Chuẩn hóa dữ liệu trước khi trả về Client
         const products = result.rows.map(item => ({
