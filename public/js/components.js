@@ -10,14 +10,14 @@ function renderHeader() {
     const headerContainer = document.getElementById('app-header');
     if (!headerContainer) return;
 
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const path = window.location.pathname;
 
     headerContainer.innerHTML = `
         <header class="main-header">
             <div class="header-inner">
                 <div class="logo-container">
-                    <a href="index.html" class="logo-link">
-                        <img src="images/logo.png" alt="Duong Kha Coffee" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
+                    <a href="/" class="logo-link">
+                        <img src="/images/logo.png" alt="Duong Kha Coffee" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
                         <div id="alt-logo" class="alt-logo-text" style="display: none;">
                             <span>DUONG KHA</span>
                             <small>ROASTED COFFEE</small>
@@ -34,11 +34,11 @@ function renderHeader() {
 
                 <nav class="nav-menu" id="nav-menu">
                     <ul>
-                        <li><a href="index.html" class="${currentPath === 'index.html' || currentPath === '' ? 'active' : ''}">Trang Chủ</a></li>
-                        <li><a href="about.html" class="${currentPath === 'about.html' ? 'active' : ''}">Giới Thiệu</a></li>
-                        <li><a href="gu-cua-ban.html" class="${currentPath === 'gu-cua-ban.html' ? 'active' : ''}">GU CỦA BẠN</a></li>
-                        <li><a href="products.html" class="${currentPath === 'products.html' ? 'active' : ''}">Sản Phẩm</a></li>
-                        <li><a href="contact.html" class="${currentPath === 'contact.html' ? 'active' : ''}">Liên Hệ</a></li>
+                        <li><a href="/" class="${path === '/' || path === '/index.html' ? 'active' : ''}">Trang Chủ</a></li>
+                        <li><a href="/about.html" class="${path === '/about.html' ? 'active' : ''}">Giới Thiệu</a></li>
+                        <li><a href="/gu-cua-ban.html" class="${path === '/gu-cua-ban.html' ? 'active' : ''}">GU CỦA BẠN</a></li>
+                        <li><a href="/products.html" class="${path.includes('/product') ? 'active' : ''}">Sản Phẩm</a></li>
+                        <li><a href="/contact.html" class="${path === '/contact.html' ? 'active' : ''}">Liên Hệ</a></li>
                     </ul>
                 </nav>
             </div>
@@ -58,7 +58,7 @@ function renderHeader() {
 }
 
 /**
- * COMPONENT FOOTER DÙNG CHUNG (Phong cách Pixelgrade - Căn trái, Chia đều không gian, Không Icon)
+ * COMPONENT FOOTER DÙNG CHUNG
  */
 function renderFooter() {
     const footerContainer = document.getElementById('app-footer');
@@ -67,13 +67,11 @@ function renderFooter() {
     footerContainer.innerHTML = `
         <footer class="main-footer">
             <div class="footer-container">
-                <!-- Cột lớn bên trái: Thương hiệu, Slogan & Mạng xã hội -->
                 <div class="footer-col footer-brand-col">
                     <h3 class="footer-brand-title">DUONG KHA COFFEE</h3>
                     <p class="footer-slogan">
                         Hơn 15 năm giữ lửa cho một di sản cà phê gia truyền – chúng tôi không chỉ rang xay cà phê, mà rang xay cả tâm huyết của nhiều thế hệ.
                     </p>
-                    
                     <div class="footer-social-inline">
                         <span class="social-label">Theo dõi chúng tôi:</span>
                         <div class="social-links">
@@ -84,8 +82,6 @@ function renderFooter() {
                         </div>
                     </div>
                 </div>
-
-                <!-- Cột 2: Thông tin liên hệ -->
                 <div class="footer-col">
                     <h4 class="footer-heading">LIÊN HỆ</h4>
                     <ul class="footer-list">
@@ -103,20 +99,16 @@ function renderFooter() {
                         </li>
                     </ul>
                 </div>
-
-                <!-- Cột 3: Sitemap (Sơ đồ trang) -->
                 <div class="footer-col">
                     <h4 class="footer-heading">DANH MỤC</h4>
                     <ul class="footer-list">
-                        <li><a href="index.html" class="list-link">Trang Chủ</a></li>
-                        <li><a href="about.html" class="list-link">Giới Thiệu</a></li>
-                        <li><a href="gu-cua-ban.html" class="list-link">Gu Của Bạn</a></li>
-                        <li><a href="products.html" class="list-link">Sản Phẩm</a></li>
-                        <li><a href="contact.html" class="list-link">Liên Hệ</a></li>
+                        <li><a href="/" class="list-link">Trang Chủ</a></li>
+                        <li><a href="/about.html" class="list-link">Giới Thiệu</a></li>
+                        <li><a href="/gu-cua-ban.html" class="list-link">Gu Của Bạn</a></li>
+                        <li><a href="/products.html" class="list-link">Sản Phẩm</a></li>
+                        <li><a href="/contact.html" class="list-link">Liên Hệ</a></li>
                     </ul>
                 </div>
-
-                <!-- Cột 4: Bản đồ & Chỉ đường -->
                 <div class="footer-col">
                     <h4 class="footer-heading">VỊ TRÍ</h4>
                     <ul class="footer-list">
@@ -131,8 +123,6 @@ function renderFooter() {
                     </ul>
                 </div>
             </div>
-
-            <!-- Dòng bản quyền phía dưới -->
             <div class="footer-bottom">
                 <div class="footer-bottom-inner">
                     <p>&copy; 2026 DUONG KHA COFFEE. All rights reserved.</p>
@@ -141,12 +131,13 @@ function renderFooter() {
             </div>
         </footer>
     `;
-    // Load floating buttons component
-const fbScript = document.createElement('script');
-fbScript.src = 'js/components/floating-buttons.js';
-document.body.appendChild(fbScript);
 
-var favScript = document.createElement('script');
-favScript.src = '/js/components/favicon.js';
-document.head.appendChild(favScript);
+    // FIX: Dùng đường dẫn tuyệt đối để không lỗi khi ở /product/2
+    const fbScript = document.createElement('script');
+    fbScript.src = '/js/components/floating-buttons.js';
+    document.body.appendChild(fbScript);
+
+    var favScript = document.createElement('script');
+    favScript.src = '/js/components/favicon.js';
+    document.head.appendChild(favScript);
 }
