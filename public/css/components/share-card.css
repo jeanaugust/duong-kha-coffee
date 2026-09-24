@@ -1,20 +1,21 @@
-/* share-card.css - Dark/Gold - FB + Messenger */
+/* share-card.css - Dark/Gold - FB + Messenger - Cân đối */
 .share-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-top: 2rem;
   padding-top: 1.8rem;
   border-top: 1px solid var(--border-dark);
+  align-items: stretch;
 }
 
 .share-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0.75rem 1.4rem;
+  width: 100%;
+  min-height: 46px;
+  padding: 0.75rem 1rem;
   background-color: transparent;
   color: var(--primary-gold);
   border: 1px solid var(--primary-gold);
@@ -26,6 +27,9 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: all var(--transition-smooth);
+  text-align: center;
+  line-height: 1.2;
+  box-sizing: border-box;
 }
 
 .share-btn:hover {
@@ -34,12 +38,21 @@
   box-shadow: 0 0 15px rgba(243, 224, 140, 0.3);
   transform: translateY(-1px);
 }
+
 .share-btn.messenger {
   border-color: #0084ff;
   color: #0084ff;
 }
+
 .share-btn.messenger:hover {
   background-color: #0084ff;
   color: #fff;
   box-shadow: 0 0 15px rgba(0,132,255,0.3);
+}
+
+/* Mobile: xếp dọc cho dễ bấm */
+@media (max-width: 480px) {
+  .share-section {
+    grid-template-columns: 1fr;
+  }
 }
