@@ -30,6 +30,61 @@ const apiLimiter = rateLimit({
 });
 app.use('/api/', apiLimiter);
 
+// --- ROUTE CHIA SẺ LINK SẢN PHẨM - OG TAGS ---
+app.get('/product/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).send('Không tìm thấy sản phẩm');
+    }
+
+    const p = result.rows[0];
+    const productUrl = `https://${req.get('host')}/product/${p.id}`;
+    // Đảm bảo ảnh là link tuyệt đối https://
+    const imageUrl = p.image_url.startsWith('http')? p.image_url : `https://${req.get('host')}${p.image_url}`;
+    const priceFormatted = new Intl.NumberFormat('vi-VN').format(p.price) + '₫';
+
+    // Đọc file html gốc
+    let html = require('fs').readFileSync(require('path').join(__dirname, 'public', 'product-detail.html'), 'utf8');
+
+    // Chèn thẻ OG động vào <head>
+    const ogTags = `
+    <title>${p.name} - ${priceFormatted} | Dương Kha Coffee</title>
+    <meta name="description" content="${p.description || p.name} - Chỉ ${priceFormatted} tại Dương Kha Coffee.">
+    <!-- Open Graph / Facebook / Zalo -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="${productUrl}">
+    <meta property="og:title" content="${p.name} - ${priceFormatted}">
+    <meta property="og:description" content="${p.description || `Cà phê ${p.name} nguyên chất, đậm vị.`}">
+    <meta property="og:image" content="${imageUrl}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Dương Kha Coffee">
+    <meta property="product:price:amount" content="${p.price}">
+    <meta property="product:price:currency" content="VND">
+    <!-- Twitter / Zalo Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${p.name} - ${priceFormatted}">
+    <meta name="twitter:image" content="${imageUrl}">
+    `;
+
+    html = html.replace('</title>', `</title>\n${ogTags}`);
+
+    // Đổi JS để đọc được /product/:id
+    html = html.replace(
+      `js/product-detail.js`,
+      `js/product-detail.js?v=${p.id}`
+    );
+
+    res.send(html);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Lỗi server');
+  }
+});
+
 // 5. Phục vụ tài nguyên tĩnh (HTML, CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
