@@ -50,7 +50,7 @@
         }
     ];
 
-    var GOOGLE_MAP_LINK = "https://www.google.com/maps/place/C%C6%A1+S%E1%BB%9F+C%C3%A0+Ph%C3%AA+Rang+D%C6%B0%C6%A1ng+Kha/@10.377503,105.4432275";
+    var GOOGLE_MAP_LINK = "https://maps.app.goo.gl/fMKkp5VKwsnGWFzs9";
     var PLACE_ID = "ChIJ4VnyI_1yPTERMN39Me28mNg"; // ID từ link bạn gửi
 
     function render() {
