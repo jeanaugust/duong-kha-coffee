@@ -50,7 +50,7 @@
         }
     ];
 
-    var GOOGLE_MAP_LINK = "https://maps.app.goo.gl/fMKkp5VKwsnGWFzs9";
+    var GOOGLE_MAP_LINK = "https://maps.app.goo.gl/RH9mkRrMdVtBMFTM6";
     var PLACE_ID = "ChIJ4VnyI_1yPTERMN39Me28mNg"; // ID từ link bạn gửi
 
     function render() {
