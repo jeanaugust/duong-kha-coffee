@@ -235,3 +235,27 @@
   .pd-actions{ flex-direction:column; }
   .products-grid{ grid-template-columns:1fr; }
 }
+
+/* Gallery phụ 10 ảnh - Grid ngẫu nhiên cân đối */
+.extra-gallery{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:8px;
+}
+.extra-gallery img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  aspect-ratio: 1/1;
+  border:1px solid rgba(243,224,140,0.08);
+  cursor:pointer;
+  transition: opacity.3s ease, transform.4s ease;
+  background:#0f0e0d;
+}
+.extra-gallery img:hover{ opacity:.8; transform: scale(1.01); }
+.extra-gallery img.span-2{ grid-column: span 2; grid-row: span 2; aspect-ratio: 1/1; }
+
+@media(max-width:600px){
+ .extra-gallery{ gap:6px; grid-template-columns: repeat(3, 1fr); }
+}

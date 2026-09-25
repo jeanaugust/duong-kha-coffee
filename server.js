@@ -28,6 +28,24 @@ function escapeHtml(str){
   return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// Tự tạo bảng product_images nếu chưa có
+(async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS product_images (
+        id SERIAL PRIMARY KEY,
+        product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+        image_url TEXT NOT NULL,
+        position INT DEFAULT 0,
+        created_at TIMESTAMP DEFAULT NOW()
+      );
+    `);
+    console.log('✅ Bảng product_images sẵn sàng');
+  } catch (e) {
+    console.error('Lỗi tạo bảng product_images:', e.message);
+  }
+})();
+
 app.get('/product/:id', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [req.params.id]);
@@ -44,14 +62,10 @@ app.get('/product/:id', async (req, res) => {
   } catch(e){ res.status(500).send('Lỗi'); }
 });
 
-// 5. Phục vụ tài nguyên tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
-
-// 6. Routes API
 app.use('/api/products', productRoutes);
 app.use('/api/contact', contactRoutes);
 
-// 7. Bắt lỗi 404
 app.use((req, res) => {
     res.status(404).send('Trang bạn tìm kiếm không tồn tại.');
 });

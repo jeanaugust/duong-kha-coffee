@@ -1,35 +1,57 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/db'); // Đường dẫn kết nối CSDL PostgreSQL
+const pool = require('../config/db');
 
+// Lấy 10 ảnh phụ của 1 sản phẩm - DÙNG CHO GRID
+router.get('/:id/images', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query(
+            `SELECT id, image_url, position FROM product_images
+             WHERE product_id = $1
+             ORDER BY position ASC, id ASC
+             LIMIT 10`,
+            [id]
+        );
+        return res.json(result.rows);
+    } catch (error) {
+        // Nếu bảng chưa tạo thì trả về mảng rỗng để không lỗi trang
+        if (error.code === '42P01') return res.json([]);
+        console.error('Lỗi lấy ảnh phụ:', error.message);
+        return res.status(500).json([]);
+    }
+});
+
+// Lấy 1 sản phẩm (để sau này dùng nếu cần)
+router.get('/:id', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM public.products WHERE id = $1', [req.params.id]);
+        if (!result.rows.length) return res.status(404).json({ error: 'Không tìm thấy' });
+        const item = result.rows[0];
+        item.price = parseFloat(item.price) || 0;
+        return res.json(item);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Lấy tất cả sản phẩm - GIỮ NGUYÊN CODE CŨ CỦA BẠN
 router.get('/', async (req, res) => {
     try {
-        // Truy vấn tất cả các cột trong bảng products
         const result = await pool.query('SELECT * FROM public.products ORDER BY id ASC');
-        
-        // Chuẩn hóa dữ liệu trước khi trả về Client
         const products = result.rows.map(item => ({
-            ...item,
-            // 1. Ép kiểu giá tiền về dạng số
+           ...item,
             price: parseFloat(item.price) || 0,
-            
-            // 2. Bảo vệ dữ liệu chuỗi: Loại bỏ khoảng trắng thừa hoặc gán giá trị giữ chỗ nếu null
-            taste: item.taste ? String(item.taste).trim() : null,
-            brewing_method: item.brewing_method ? String(item.brewing_method).trim() : null,
-            grind_type: item.grind_type ? String(item.grind_type).trim() : null,
-            shelf_life: item.shelf_life ? String(item.shelf_life).trim() : null
+            taste: item.taste? String(item.taste).trim() : null,
+            brewing_method: item.brewing_method? String(item.brewing_method).trim() : null,
+            grind_type: item.grind_type? String(item.grind_type).trim() : null,
+            shelf_life: item.shelf_life? String(item.shelf_life).trim() : null
         }));
-
-        // Đặt Header và trả phản hồi DUY NHẤT một lần
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json(products);
-
     } catch (error) {
-        console.error('❌ [API ERROR] Lỗi khi thực hiện Query SQL:', error.message);
-        return res.status(500).json({ 
-            error: 'Lỗi máy chủ khi lấy dữ liệu sản phẩm',
-            details: error.message 
-        });
+        console.error('❌ [API ERROR]:', error.message);
+        return res.status(500).json({ error: 'Lỗi máy chủ', details: error.message });
     }
 });
 

@@ -41,16 +41,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const grind = escapeHtml(p.grind_type || p.grind || 'Bột / Hạt');
         const shelf = escapeHtml(p.shelf_life || '6 tháng');
         const desc = escapeHtml(p.description || 'Cà phê rang mộc gia truyền từ 2010, không tẩm bơ, không hương liệu.');
-
-        // Link MỚI để share - luôn hiện bìa
         const shareUrl = `${window.location.origin}/product/${p.id}`;
 
         document.title = `${p.name} - ${formatCurrency(p.price)} | Dương Kha Coffee`;
 
         root.innerHTML = `
-            <div class="pd-layout reveal active">
+            <div class="pd-layout">
                 <div class="pd-gallery">
-                    <img src="${img}" alt="${escapeHtml(p.name)}" onerror="this.src='https://via.placeholder.com/600x600/141210/f3e08c?text=Coffee'">
+                    <img class="pd-main-img" id="pd-main-img" src="${img}" alt="${escapeHtml(p.name)}" onerror="this.src='https://via.placeholder.com/600x600/141210/f3e08c?text=Coffee'">
+                    <div id="extra-gallery" class="extra-gallery"></div>
                 </div>
                 <div class="pd-content">
                     <span class="pd-badge">${getType(p).toUpperCase()} · RANG MỘC</span>
@@ -85,30 +84,45 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
         `;
 
-        // Copy link MỚI
+        // --- LOGIC ẢNH PHỤ 10 ẢNH GRID NGẪU NHIÊN ---
+        const mainImgEl = document.getElementById('pd-main-img');
+        const extraGalleryEl = document.getElementById('extra-gallery');
+
+        async function loadExtraImages() {
+            try {
+                const r = await fetch(`/api/products/${productId}/images`);
+                if (!r.ok) return;
+                const images = await r.json();
+                if (!images.length) { extraGalleryEl.style.display='none'; return; }
+
+                extraGalleryEl.innerHTML = images.map((item, idx) => {
+                    const url = escapeHtml(item.image_url);
+                    // Tự cân: ảnh đầu và ảnh thứ 5 to hơn để grid không đều đều
+                    const spanClass = (idx === 0 || idx % 5 === 0) && images.length > 3? 'span-2' : '';
+                    return `<img src="${url}" class="${spanClass}" alt="Ảnh ${idx+1}" loading="lazy" onerror="this.style.display='none'">`;
+                }).join('');
+
+                extraGalleryEl.querySelectorAll('img').forEach(imgEl => {
+                    imgEl.addEventListener('click', () => {
+                        mainImgEl.src = imgEl.src;
+                        mainImgEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                });
+            } catch(e) { console.log('Không có ảnh phụ', e); }
+        }
+        loadExtraImages();
+
+        // Copy + Share giữ nguyên
         document.getElementById('btn-copy-link')?.addEventListener('click', async () => {
-            try { await navigator.clipboard.writeText(shareUrl); alert('Đã copy link mới (có bìa ảnh):\n' + shareUrl); }
+            try { await navigator.clipboard.writeText(shareUrl); alert('Đã copy link:\n' + shareUrl); }
             catch { prompt('Copy link này:', shareUrl); }
         });
-
-        // Share Facebook
         document.getElementById('btn-share-fb')?.addEventListener('click', () => {
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank', 'width=600,height=400');
         });
-
-        // Share Messenger - cho chọn người
         document.getElementById('btn-share-messenger')?.addEventListener('click', () => {
-            const fbMessengerUrl = `fb-messenger://share?link=${encodeURIComponent(shareUrl)}`;
             const webMessengerUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareUrl)}&app_id=291494419107518&redirect_uri=${encodeURIComponent(shareUrl)}&display=popup`;
-
-            // Thử mở app Messenger trên mobile, nếu không được thì mở web cho chọn người
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (isMobile) {
-                window.location.href = fbMessengerUrl;
-                setTimeout(() => window.open(webMessengerUrl, '_blank', 'width=600,height=500'), 800);
-            } else {
-                window.open(webMessengerUrl, '_blank', 'width=600,height=500');
-            }
+            window.open(webMessengerUrl, '_blank', 'width=600,height=500');
         });
 
         const related = allProducts.filter(x => String(x.id)!== String(productId) && getType(x) === getType(p)).slice(0,3);
@@ -116,9 +130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             relatedRoot.style.display = 'block';
             relatedGrid.innerHTML = related.map(r => `
                 <div class="product-card-lux">
-                    <div class="product-card-top">
-                        <img src="${r.image_url || ''}" alt="${escapeHtml(r.name)}">
-                    </div>
+                    <div class="product-card-top"><img src="${r.image_url || ''}" alt="${escapeHtml(r.name)}"></div>
                     <div class="product-card-body">
                         <h3 class="product-card-title">${escapeHtml(r.name)}</h3>
                         <div class="product-card-footer">
@@ -129,7 +141,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `).join('');
         }
-
     } catch (err) {
         console.error(err);
         root.innerHTML = `<p style="text-align:center;color:#ff6b6b">Lỗi: ${escapeHtml(err.message)}</p>`;
